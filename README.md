@@ -30,8 +30,10 @@
 
 ## 🌱 Who is this for?
 
-The **Self-Host Server** is designed for:
+The **Print Relay** is designed for:
 
+- **End Users**:
+    - Seamless access to shared printers across networks.
 - **Small Offices**:
     - Centralized control over shared printers without IT complexity.
 - **Distributed Teams**:
@@ -57,7 +59,7 @@ The **Self-Host Server** is designed for:
     - **Blazor Server**: Real-time admin interactions.
     - **Blazor WASM**: Optional lightweight deployment.
 
-### Placeholder Links
+### Client App
 
 - [Client App](https://github.com/SaintScraTchY/Print-Relay-App)
 
