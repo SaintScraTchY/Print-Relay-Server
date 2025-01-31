@@ -8,7 +8,8 @@ public class PrintJob : Entity<Guid>
 {
     public PrintJobStatus Status { get; set; }
 
-    public string? Details { get; set; }
+    public Guid DetailId { get; set; }
+    public PrintJobDetail Detail { get; set; }
     
     public Guid RequesterId { get; set; }
     public AppUser Requester { get; set; }

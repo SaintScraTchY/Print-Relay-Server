@@ -7,6 +7,9 @@ public class Device : FullEntity
 {
     public string Name { get; set; }
     public string Code { get; set; }
+
+    public string OsIdentifier { get; set; }
+    
     public Guid OwnerId { get; set; }
     public AppUser Owner { get; set; }
 
