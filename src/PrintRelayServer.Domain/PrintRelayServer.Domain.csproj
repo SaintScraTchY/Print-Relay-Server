@@ -10,8 +10,4 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="IRepositories\" />
-    </ItemGroup>
-
 </Project>

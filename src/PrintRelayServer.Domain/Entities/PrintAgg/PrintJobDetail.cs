@@ -13,7 +13,7 @@ public class PrintJobDetail: Entity<Guid>
     public PrintPaper PrintPaper { get; set; }
     
     public PrintPriority Priority { get; set; }
-    public uint Copies { get; set; } = 1;
+    public uint Copies { get; set; }
     public string Margins { get; set; }
     public PrintQuality Quality { get; set; }
 
