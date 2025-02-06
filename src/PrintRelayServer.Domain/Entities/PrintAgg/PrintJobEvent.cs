@@ -9,11 +9,27 @@ public class PrintJobEvent : Entity<Guid>
 
     public string? Details { get; set; }
 
+    protected PrintJobEvent()
+    {
+        
+    }
+
     #region Navigations
 
     public Guid PrintJobId { get; set; }
     public PrintJob PrintJob { get; set; }
-    
 
     #endregion
+}
+
+public enum PrintJobStatus
+{
+    Sent = 1,
+    Approved,
+    InQueue,
+    Paused,
+    Cancelled,
+    Printing,
+    Failed,
+    Printed
 }

@@ -9,6 +9,11 @@ public class DeviceOptionValue : FullEntity
 
     public Guid DeviceTypeOptionId { get; set; }
     public DeviceTypeOption? DeviceTypeOption { get; set; }
+    
+    protected DeviceOptionValue()
+    {
+        
+    }
 
     public DeviceOptionValue(string label, string value)
     {

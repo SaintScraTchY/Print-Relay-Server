@@ -8,6 +8,11 @@ public class DeviceType : Entity<Guid>
     public string Description { get; set; }
     public ICollection<DeviceTypeOption>? AvailableOptions { get; set; }
     public ICollection<Device>? Devices { get; set; }
+
+    protected DeviceType()
+    {
+        
+    }
     
     public DeviceType(string name, string description)
     {

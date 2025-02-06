@@ -9,6 +9,11 @@ public class DeviceTypeOption : FullEntity
     public Guid DeviceTypeId { get; set; }
     public DeviceType DeviceType { get; set; }
     public ICollection<DeviceOptionValue>? AllowedOptions { get; set; }
+
+    protected DeviceTypeOption()
+    {
+        
+    }
     
     public DeviceTypeOption(string optionName, Guid deviceTypeId, ICollection<DeviceOptionValue>? allowedOptions = null)
     {

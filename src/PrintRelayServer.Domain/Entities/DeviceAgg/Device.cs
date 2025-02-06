@@ -16,6 +16,11 @@ public class Device : FullEntity
     public Guid DeviceTypeId { get; set; }
     public DeviceType DeviceType { get; set; }
 
+    protected Device()
+    {
+        
+    }
+
     public Device(string name, string code, Guid ownerId, Guid deviceTypeId)
     {
         Name = name;

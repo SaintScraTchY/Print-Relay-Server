@@ -1,5 +1,4 @@
-﻿using System.Xml.Schema;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PrintRelayServer.Domain.Entities.DeviceAgg;
 
