@@ -8,7 +8,10 @@
 
     <ItemGroup>
       <Folder Include="Application\Implementations\" />
-      <Folder Include="Application\Interfaces\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
     </ItemGroup>
 
 </Project>

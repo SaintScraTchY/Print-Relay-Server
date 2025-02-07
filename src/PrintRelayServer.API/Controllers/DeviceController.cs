@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrintRelayServer.Domain.Entities.PrintAgg;
 
 namespace PrintRelayServer.API.Controllers;
 
-[Route("{Controller}/{Action}")]
+[Route("/Api/[controller]/[action]")]
 [ApiController]
 public class DeviceController : ControllerBase
 {
@@ -33,7 +32,6 @@ public class DeviceController : ControllerBase
     }
 
     #endregion
-
 
     #region DeviceType
 

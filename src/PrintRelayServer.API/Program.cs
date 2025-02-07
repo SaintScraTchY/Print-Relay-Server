@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PrintRelayServer.Domain.Entities.Identity;
 using PrintRelayServer.Infrastructure.Contexts;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
 
 // Add DbContext
 builder.Services.AddDbContext<PrintRelayContext>(options =>
@@ -27,16 +29,21 @@ builder.Services.AddIdentity<AppUser, AppRole>(options =>
 
 var app = builder.Build();
 
+
+app.MapOpenApi();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapScalarApiReference();
 }
+
+app.UseHttpsRedirection();
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();
