@@ -4,7 +4,7 @@ using PrintRelayServer.Infrastructure.Contexts;
 
 namespace PrintRelayServer.Infrastructure.Repositories.DeviceRepo;
 
-public class DeviceTypeOptionRepository : Repository<DeviceTypeOption,Guid>, IDeviceTypeOptionRepository
+public class DeviceTypeOptionRepository : Repository<DeviceTypeOption>, IDeviceTypeOptionRepository
 {
     private readonly PrintRelayContext _context;
     public DeviceTypeOptionRepository(PrintRelayContext context) : base(context)

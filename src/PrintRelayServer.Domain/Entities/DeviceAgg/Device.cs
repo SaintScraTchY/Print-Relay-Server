@@ -29,9 +29,10 @@ public class Device : FullEntity
         DeviceTypeId = deviceTypeId;
     }
     
-    public void Edit(string name, string code)
+    public void Edit(string name, string code,Guid userId)
     {
         Name = name;
         Code = code;
+        Updated(userId);
     }
 }

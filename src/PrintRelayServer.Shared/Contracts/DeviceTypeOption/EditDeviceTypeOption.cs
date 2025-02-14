@@ -2,5 +2,6 @@
 
 public class EditDeviceTypeOption
 {
+    public string? Name { get; set; }
     
 }

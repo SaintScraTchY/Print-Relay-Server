@@ -7,11 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Application\Implementations\" />
+      <ProjectReference Include="..\PrintRelayServer.Domain\PrintRelayServer.Domain.csproj" />
+      <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
+      <PackageReference Include="Riok.Mapperly" Version="4.1.1" />
     </ItemGroup>
 
 </Project>

@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.IRepositories.IPrintRepo;
 
-public interface IPrintJobEventRepository:IRepository<PrintJobEvent,Guid>
+public interface IPrintJobEventRepository : IRepository<PrintJobEvent>
 {
     
 }

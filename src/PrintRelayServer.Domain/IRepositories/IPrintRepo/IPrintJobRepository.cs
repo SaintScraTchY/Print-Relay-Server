@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.IRepositories.IPrintRepo;
 
-public interface IPrintJobRepository : IRepository<PrintJob,Guid>
+public interface IPrintJobRepository : IRepository<PrintJob>
 {
     
 }

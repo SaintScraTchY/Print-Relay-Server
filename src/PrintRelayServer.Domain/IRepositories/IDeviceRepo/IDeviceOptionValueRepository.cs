@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.IRepositories.IDeviceRepo;
 
-public interface IDeviceOptionValueRepository : IRepository<DeviceOptionValue,Guid>
+public interface IDeviceOptionValueRepository : IRepository<DeviceOptionValue>
 {
     
 }

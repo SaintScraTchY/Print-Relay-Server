@@ -12,34 +12,38 @@ public class FullEntity : Entity<Guid>
     public bool IsActive { get; set; } = true;
     public bool IsDeleted { get; set; } = false;
 
-    public FullEntity()
+    protected FullEntity()
     {
         CreatedOn = DateTime.Now;
     }
-    
-    public void Updated(Guid userGuid)
+
+    protected void Updated(Guid userGuid)
     {
         UpdatedOn = DateTime.Now;
         UpdatedBy = userGuid;
     }
 
-    public void SoftDelete()
+    public void SoftDelete(Guid userGuid)
     {
         IsDeleted = true;
+        Updated(userGuid);
     }
 
-    public void DeActivate()
+    public void DeActivate(Guid userGuid)
     {
         IsActive = false;
+        Updated(userGuid);
     }
 
-    public void Restore()
+    public void Restore(Guid userGuid)
     {
         IsDeleted = true;
+        Updated(userGuid);
     }
 
-    public void ReActivate()
+    public void ReActivate(Guid userGuid)
     {
         IsActive = true;
+        Updated(userGuid);
     }
 }

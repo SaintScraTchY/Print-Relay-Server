@@ -4,7 +4,6 @@ namespace PrintRelayServer.Domain.Entities.DeviceAgg;
 
 public class DeviceTypeOption : FullEntity
 {
-
     public string OptionName { get; set; }
     public Guid DeviceTypeId { get; set; }
     public DeviceType DeviceType { get; set; }
@@ -22,9 +21,8 @@ public class DeviceTypeOption : FullEntity
         AllowedOptions = allowedOptions ?? new List<DeviceOptionValue>();
     }
     
-    public void Edit(string optionName, Guid deviceTypeId)
+    public void Edit(string? optionName)
     {
-        OptionName = optionName;
-        DeviceTypeId = deviceTypeId;
+        OptionName = optionName ?? OptionName;
     }
 }

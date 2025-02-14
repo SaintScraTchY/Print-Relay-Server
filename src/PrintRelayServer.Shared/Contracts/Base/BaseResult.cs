@@ -3,8 +3,8 @@
 public class BaseResult<TEntity>
 {
     public bool IsSucceeded { get; set; }
-    public string Message { get; set; }
-    public TEntity Result { get; set; }
+    public string? Message { get; set; }
+    public TEntity? Result { get; set; }
 }
 
 public static class ReturnResult<TEntity>
@@ -12,6 +12,7 @@ public static class ReturnResult<TEntity>
     private const string SucceedText = "Succeed";
     private const string ErrorText = "Error";
     private const string WarningText = "Warning";
+    
     public static BaseResult<TEntity> Success(TEntity result, string? message = null) =>
         new BaseResult<TEntity>()
         {

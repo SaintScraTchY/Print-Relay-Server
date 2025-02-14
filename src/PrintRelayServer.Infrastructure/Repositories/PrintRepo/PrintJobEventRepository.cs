@@ -4,7 +4,7 @@ using PrintRelayServer.Infrastructure.Contexts;
 
 namespace PrintRelayServer.Infrastructure.Repositories.PrintRepo;
 
-public class PrintJobEventRepository : Repository<PrintJobEvent,Guid>,IPrintJobEventRepository
+public class PrintJobEventRepository : Repository<PrintJobEvent>,IPrintJobEventRepository
 {
     private PrintRelayContext _context;
     public PrintJobEventRepository(PrintRelayContext context) : base(context)

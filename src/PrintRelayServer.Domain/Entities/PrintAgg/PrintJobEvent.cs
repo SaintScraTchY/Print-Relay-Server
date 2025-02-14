@@ -15,10 +15,8 @@ public class PrintJobEvent : Entity<Guid>
     }
 
     #region Navigations
-
     public Guid PrintJobId { get; set; }
     public PrintJob PrintJob { get; set; }
-
     #endregion
 }
 

@@ -10,4 +10,8 @@
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
+    </ItemGroup>
+
 </Project>
