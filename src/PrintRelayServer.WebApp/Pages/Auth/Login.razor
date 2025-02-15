@@ -1,6 +1,202 @@
 ﻿@page "/Login"
-<h3>Login</h3>
+@using Microsoft.Fast.Components.FluentUI
+
+<div class="login-container">
+    <FluentCard class="login-card">
+        <div class="login-header">
+            <img src="/images/logo.png" alt="Logo" class="logo" />
+            <h2>Welcome Back</h2>
+            <p>Please sign in to continue</p>
+        </div>
+
+        <div class="login-tabs">
+            <FluentTabs>
+                <FluentTab Text="Email/Password">
+                    <FluentTextField @bind-Value="Email" 
+                                   Placeholder="Email address"
+                                   Type="email"
+                                   Required="true"
+                                   Icon="@FluentIcons.Mail" />
+                                   
+                    <FluentTextField @bind-Value="Password"
+                                   Placeholder="Password"
+                                   Type="password"
+                                   Required="true"
+                                   Icon="@FluentIcons.Password" />
+
+                    <FluentButton Appearance="Appearance.Accent" 
+                                OnClick="HandleEmailLogin"
+                                class="login-button">
+                        Sign In
+                    </FluentButton>
+
+                    <div class="forgot-password">
+                        <FluentAnchor Href="/forgot-password">Forgot Password?</FluentAnchor>
+                    </div>
+                </FluentTab>
+
+                <FluentTab Text="Phone Number">
+                    <FluentTextField @bind-Value="PhoneNumber"
+                                   Placeholder="Phone Number"
+                                   Type="tel"
+                                   Required="true"
+                                   Icon="@FluentIcons.Phone" />
+
+                    <FluentButton Appearance="Appearance.Accent"
+                                OnClick="HandlePhoneLogin"
+                                class="login-button">
+                        Get OTP
+                    </FluentButton>
+                </FluentTab>
+            </FluentTabs>
+        </div>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <div class="social-login">
+            <FluentButton OnClick="HandleGoogleLogin" class="social-button google">
+                <FluentIcon Value="@FluentIcons.GoogleColor" />
+                Continue with Google
+            </FluentButton>
+
+            <FluentButton OnClick="HandleGithubLogin" class="social-button github">
+                <FluentIcon Value="@FluentIcons.GitHubLogo" />
+                Continue with GitHub
+            </FluentButton>
+        </div>
+
+        <div class="signup-prompt">
+            Don't have an account? <FluentAnchor Href="/register">Sign Up</FluentAnchor>
+        </div>
+    </FluentCard>
+</div>
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+
+    .login-header h2 {
+        margin: 0;
+        color: var(--neutral-foreground-rest);
+        font-size: 1.5rem;
+    }
+
+    .login-header p {
+        color: var(--neutral-foreground-hint);
+        margin: 0.5rem 0 0;
+    }
+
+    .login-tabs {
+        margin-bottom: 1.5rem;
+    }
+
+    ::deep .login-button {
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    .forgot-password {
+        text-align: right;
+        margin-top: 0.5rem;
+    }
+
+    .divider {
+        text-align: center;
+        margin: 1.5rem 0;
+        position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 45%;
+        height: 1px;
+        background-color: var(--neutral-stroke-rest);
+    }
+
+    .divider::before {
+        left: 0;
+    }
+
+    .divider::after {
+        right: 0;
+    }
+
+    .divider span {
+        background-color: var(--neutral-layer-1);
+        padding: 0 1rem;
+        color: var(--neutral-foreground-hint);
+    }
+
+    .social-login {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    ::deep .social-button {
+        width: 100%;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .signup-prompt {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--neutral-foreground-hint);
+    }
+</style>
 
 @code {
-    
+    private string Email { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+    private string PhoneNumber { get; set; } = string.Empty;
+
+    private async Task HandleEmailLogin()
+    {
+        // Implement email login logic
+    }
+
+    private async Task HandlePhoneLogin()
+    {
+        // Implement phone login logic
+    }
+
+    private async Task HandleGoogleLogin()
+    {
+        // Implement Google OAuth login
+    }
+
+    private async Task HandleGithubLogin()
+    {
+        // Implement GitHub OAuth login
+    }
 }

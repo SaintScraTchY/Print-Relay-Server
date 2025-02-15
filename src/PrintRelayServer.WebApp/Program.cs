@@ -1,10 +1,12 @@
 using PrintRelayServer.WebApp.Components;
+using PrintRelayServer.WebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<IDeviceService, DeviceService>();
 
 var app = builder.Build();
 

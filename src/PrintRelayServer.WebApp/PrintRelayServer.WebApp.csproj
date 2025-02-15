@@ -24,6 +24,17 @@
       <_ContentIncludedByDefault Remove="Pages\Settings\Settings.razor" />
       <_ContentIncludedByDefault Remove="Pages\Users\ResourceAccess.razor" />
       <_ContentIncludedByDefault Remove="Pages\Users\Users.razor" />
+      
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.8.0" />
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*" />
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
     </ItemGroup>
 
 </Project>

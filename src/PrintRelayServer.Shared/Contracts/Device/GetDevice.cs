@@ -4,6 +4,7 @@ namespace PrintRelayServer.Shared.Contracts.Device;
 
 public class GetDevice
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Code { get; set; }
 
