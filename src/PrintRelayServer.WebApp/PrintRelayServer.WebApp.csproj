@@ -13,4 +13,17 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Pages\Auth\Login.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Dashboard\Dashboard.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Devices\Devices.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Devices\DeviceTypeOptions.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Devices\DeviceTypes.razor" />
+      <_ContentIncludedByDefault Remove="Pages\PrintJobEvents\PrintJobEvents.razor" />
+      <_ContentIncludedByDefault Remove="Pages\PrintJobs\PrintJobs.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Settings\Settings.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Users\ResourceAccess.razor" />
+      <_ContentIncludedByDefault Remove="Pages\Users\Users.razor" />
+    </ItemGroup>
+
 </Project>
