@@ -1,3 +1,4 @@
+using Microsoft.Fast.Components.FluentUI;
 using PrintRelayServer.WebApp.Components;
 using PrintRelayServer.WebApp.Services;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<IDeviceService, DeviceService>();
+builder.Services.AddFluentUIComponents();
 
 var app = builder.Build();
 

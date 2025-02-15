@@ -1,5 +1,8 @@
 ﻿@page "/Devices"
 @inherits DevicesBase
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.FluentUI.AspNetCore.Components
+@using Microsoft.FluentUI.AspNetCore.Components.Icons.Filled
 
 <PageTitle>Devices</PageTitle>
 
@@ -8,7 +11,7 @@
         <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-bold text-gray-800">Devices</h1>
             <FluentButton Appearance="Appearance.Accent" 
-                         IconStart="@(new Icons.Regular.Size20.Add())"
+                         IconStart="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Filled.Size20.Add())"
                          OnClick="@(() => ShowAddDialog = true)"
                          class="bg-blue-600 hover:bg-blue-700">
                 Add Device
@@ -22,30 +25,32 @@
         else
         {
             <div class="bg-white rounded-lg shadow">
-                <FluentDataGrid Items="@Devices" ResizableColumns="true" class="min-h-[400px]">
-                    <FluentDataGridColumns>
-                        <FluentDataGridColumn Title="Name" Field="@(nameof(GetDevice.Name))" />
-                        <FluentDataGridColumn Title="Code" Field="@(nameof(GetDevice.Code))" />
-                        <FluentDataGridColumn Title="OS" Field="@(nameof(GetDevice.OsIdentifier))" />
-                        <FluentDataGridColumn Title="Owner" Field="@(c => c.Owner.Name)" />
-                        <FluentDataGridColumn Title="Device Type" Field="@(c => c.DeviceType.DeviceTypeName)" />
-                        <FluentDataGridColumn Title="Actions">
-                            <ColumnTemplate>
-                                <div class="flex gap-2">
-                                    <FluentButton IconStart="@(new Icons.Regular.Size20.Edit())"
-                                                 OnClick="@(() => EditDevice(context.Item))"
-                                                 class="text-blue-600 hover:text-blue-700">
-                                        Edit
-                                    </FluentButton>
-                                    <FluentButton IconStart="@(new Icons.Regular.Size20.Delete())"
-                                                 OnClick="@(() => DeleteDevice(context.Item))"
-                                                 class="text-red-600 hover:text-red-700">
-                                        Delete
-                                    </FluentButton>
-                                </div>
-                            </ColumnTemplate>
-                        </FluentDataGridColumn>
-                    </FluentDataGridColumns>
+                <FluentDataGrid Items="Devices.AsQueryable()" ResizableColumns="true" class="min-h-[400px]">
+                    <PropertyColumn Property="d=>d.Name" Title="Name" />
+                    <PropertyColumn Property="d=>d.Code" Title="Code" />
+                    <PropertyColumn Property="d=>d.OsIdentifier" Title="OS" />
+                    <TemplateColumn Title="Owner">
+                        <CellTemplate>
+                            @context.Owner.FirstName @context.Owner.LastName
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <PropertyColumn Property="d=>d.DeviceType" Title="Device Type" />
+                    <TemplateColumn Title="Actions">
+                        <CellTemplate>
+                            <div class="flex gap-2">
+                                <FluentButton Icon="@(new Size20.Edit())"
+                                              OnClick="() => EditDevice(context)"
+                                              class="text-blue-600 hover:text-blue-700">
+                                    Edit
+                                </FluentButton>
+                                <FluentButton Icon="@(new Size20.Delete())"
+                                              OnClick="() => DeleteDevice(context)"
+                                              class="text-red-600 hover:text-red-700">
+                                    Delete
+                                </FluentButton>
+                            </div>
+                        </CellTemplate>
+                    </TemplateColumn>
                 </FluentDataGrid>
             </div>
         }

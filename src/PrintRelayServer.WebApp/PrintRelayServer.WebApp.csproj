@@ -29,12 +29,16 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="3.8.0" />
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.*" />
-      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*" />
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.11.4" />
+      <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.11.4" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\" />
     </ItemGroup>
 
 </Project>

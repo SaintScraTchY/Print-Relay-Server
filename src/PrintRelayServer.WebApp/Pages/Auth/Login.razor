@@ -1,5 +1,5 @@
 ﻿@page "/Login"
-@using Microsoft.Fast.Components.FluentUI
+@using Microsoft.FluentUI.AspNetCore.Components
 
 <div class="login-container">
     <FluentCard class="login-card">
@@ -16,13 +16,15 @@
                                    Placeholder="Email address"
                                    Type="email"
                                    Required="true"
-                                   Icon="@FluentIcons.Mail" />
+                                   @* Icon="@FluentIcons.Mail"  *@
+                                   />
                                    
                     <FluentTextField @bind-Value="Password"
                                    Placeholder="Password"
                                    Type="password"
                                    Required="true"
-                                   Icon="@FluentIcons.Password" />
+                                   @* Icon="@FluentIcons.Password"  *@
+                                   />
 
                     <FluentButton Appearance="Appearance.Accent" 
                                 OnClick="HandleEmailLogin"
@@ -40,7 +42,8 @@
                                    Placeholder="Phone Number"
                                    Type="tel"
                                    Required="true"
-                                   Icon="@FluentIcons.Phone" />
+                                   @* Icon="@FluentIcons.Phone"  *@
+                                   />
 
                     <FluentButton Appearance="Appearance.Accent"
                                 OnClick="HandlePhoneLogin"
@@ -57,12 +60,12 @@
 
         <div class="social-login">
             <FluentButton OnClick="HandleGoogleLogin" class="social-button google">
-                <FluentIcon Value="@FluentIcons.GoogleColor" />
+                @* <FluentIcon Value="@FluentIcons.GoogleColor" /> *@
                 Continue with Google
             </FluentButton>
 
             <FluentButton OnClick="HandleGithubLogin" class="social-button github">
-                <FluentIcon Value="@FluentIcons.GitHubLogo" />
+                @* <FluentIcon Value="@Icon..GitHubLogo" /> *@
                 Continue with GitHub
             </FluentButton>
         </div>

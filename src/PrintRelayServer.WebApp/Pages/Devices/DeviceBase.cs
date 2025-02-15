@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 using PrintRelayServer.Shared.Contracts.Device;
@@ -11,7 +10,7 @@ public class DevicesBase : ComponentBase
     [Inject] public required IDeviceService DeviceService { get; set; }
     [Inject] public required IDialogService DialogService { get; set; }
 
-    protected List<GetDevice> Devices { get; set; } = new();
+    protected IEnumerable<GetDevice> Devices { get; set; } = new List<GetDevice>();
     protected bool ShowAddDialog { get; set; }
     protected bool ShowEditDialog { get; set; }
     protected bool IsLoading { get; set; } = true;
