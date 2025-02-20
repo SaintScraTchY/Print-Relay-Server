@@ -1,4 +1,5 @@
-﻿using PrintRelayServer.Shared.Contracts.Users;
+﻿using PrintRelayServer.Shared.Contracts.DeviceType;
+using PrintRelayServer.Shared.Contracts.Users;
 
 namespace PrintRelayServer.Shared.Contracts.Device;
 
@@ -12,5 +13,5 @@ public class GetDevice
     
     public GetUser Owner { get; set; }
 
-    public GetDevice DeviceType { get; set; }
+    public GetDeviceType DeviceType { get; set; }
 }

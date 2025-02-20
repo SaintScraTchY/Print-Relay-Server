@@ -1,0 +1,74 @@
+﻿@page "/Devices"
+@using PrintRelayServer.Shared.Contracts.Device
+@using PrintRelayServer.Shared.Contracts.DeviceType
+@using PrintRelayServer.Shared.Contracts.Users
+<h3>Devices</h3>
+<p>Number of devices: @DevicesList.Count()</p>
+
+<RadzenDataGrid Count="@DevicesList.Count()" Data="@DevicesList" TItem="GetDevice" AllowPaging="true" PageSize="20">
+    <Columns>
+    <RadzenDataGridColumn Width="50px" Title="@nameof(GetDevice.Id)" Property="@nameof(GetDevice.Id)"/>
+    <RadzenDataGridColumn Width="50px" Title="@nameof(GetDevice.Name)" Property="@nameof(GetDevice.Name)"/>
+    <RadzenDataGridColumn Width="50px" Title="@nameof(GetDevice.Code)" Property="@nameof(GetDevice.Code)"/>
+    <RadzenDataGridColumn Width="50px" Title="@nameof(GetDevice.OsIdentifier)" Property="@nameof(GetDevice.OsIdentifier)"/>
+    </Columns>
+</RadzenDataGrid>
+
+<hr/>
+
+<RadzenDataGrid Data="@DevicesList" TItem="GetDevice" AllowPaging="true" PageSize="10">
+    <RadzenDataGridColumn Title="Id" Property="Id" />
+    <RadzenDataGridColumn Title="Name" Property="Name" />
+    <RadzenDataGridColumn Title="Code" Property="Code" />
+    <RadzenDataGridColumn Title="OS" Property="OsIdentifier" />
+</RadzenDataGrid>
+
+@if (DevicesList != null)
+{
+    <ul>
+        @foreach (var device in DevicesList)
+        {
+            <li>@device.Name - @device.Code</li>
+        }
+    </ul>
+}
+
+@code {
+    private IQueryable<GetDevice> DevicesList { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        
+        await base.OnInitializedAsync();
+        var list = new List<GetDevice>()
+        {
+            new GetDevice()
+            {
+                Id = Guid.NewGuid(),
+                Code = "002",
+                Name = "John Printer",
+                Owner = new GetUser(),
+                DeviceType = new GetDeviceType(),
+                OsIdentifier = "Printer"
+            },
+            new GetDevice()
+            {
+                Id = Guid.NewGuid(),
+                Code = "003",
+                Name = "John Printer",
+                Owner = new GetUser(),
+                DeviceType = new GetDeviceType(),
+                OsIdentifier = "Printer1"
+            },
+            new GetDevice()
+            {
+                Id = Guid.NewGuid(),
+                Code = "003",
+                Name = "Doe Printer",
+                Owner = new GetUser(),
+                DeviceType = new GetDeviceType(),
+                OsIdentifier = "Printer2"
+            }
+        };
+        DevicesList = list.AsQueryable();
+    }
+}
