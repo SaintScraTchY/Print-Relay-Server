@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PrintRelayServer.Application.Application.Interfaces;
+using PrintRelayServer.Shared.Contracts.Device;
+using PrintRelayServer.Shared.Contracts.DeviceType;
+using PrintRelayServer.Shared.Contracts.DeviceTypeOption;
 
 namespace PrintRelayServer.API.Controllers;
 
@@ -6,29 +10,32 @@ namespace PrintRelayServer.API.Controllers;
 [ApiController]
 public class DeviceController : ControllerBase
 {
-    public DeviceController()
+    private readonly IDeviceApplication _deviceApplication;
+    public DeviceController(IDeviceApplication deviceApplication)
     {
-        
+        _deviceApplication = deviceApplication;
     }
 
     #region Device
 
     [HttpGet]
-    public async Task<IActionResult> GetAllDevices()
+    public async Task<IActionResult> GetAllDevices(int pageNumber, int pageSize)
     {
-        return Ok();
+        return Ok(await _deviceApplication.GetDeviceList(pageNumber, pageSize));
     }
 
     [HttpPut("{key:guid}")]
-    public async Task<ActionResult> EditDevice(Guid key)
+    public async Task<ActionResult> EditDevice(Guid key,EditDevice editDevice)
     {
-        return Ok();
+        var result = await _deviceApplication.EditDevice(key,editDevice);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result); 
     }
 
     [HttpDelete("{key:guid}")]
     public async Task<ActionResult> DeleteDevice(Guid key)
     {
-        return Ok();
+        var result = await _deviceApplication.RemoveDevice(key);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
 
     #endregion
@@ -36,27 +43,30 @@ public class DeviceController : ControllerBase
     #region DeviceType
 
     [HttpGet("Type")]
-    public async Task<IActionResult> GetAllDeviceTypes()
+    public async Task<IActionResult> GetAllDeviceTypes(int pageNumber, int pageSize)
     {
-        return Ok();
+        return Ok(await _deviceApplication.GetDeviceTypeList(pageNumber, pageSize));
     }
 
     [HttpPost("Type")]
-    public async Task<IActionResult> CreateDeviceType()
+    public async Task<IActionResult> CreateDeviceType(AddDeviceType addDeviceType)
     {
-        return Ok();
+        var result = await _deviceApplication.AddDeviceType(addDeviceType);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
 
     [HttpPut("Type/{key:guid}")]
-    public async Task<ActionResult> EditDeviceType(Guid key)
+    public async Task<ActionResult> EditDeviceType(Guid key,EditDeviceType editDeviceType)
     {
-        return Ok();
+        var result = await _deviceApplication.EditDeviceType(key, editDeviceType);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
 
     [HttpDelete("Type/{key:guid}")]
     public async Task<ActionResult> DeleteDeviceType(Guid key)
     {
-        return Ok();
+        var result = await _deviceApplication.RemoveDeviceType(key);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
     #endregion
 
@@ -65,25 +75,28 @@ public class DeviceController : ControllerBase
     [HttpGet("TypeOption/{key:guid}")]
     public async Task<IActionResult> GetAllDeviceTypeOptionsByType(Guid key)
     {
-        return Ok();
+        return Ok(await _deviceApplication.GetDeviceTypeOptionList(key));
     }
 
     [HttpPost("TypeOption")]
-    public async Task<IActionResult> CreateDeviceTypeOption()
+    public async Task<IActionResult> CreateDeviceTypeOption(AddDeviceTypeOption addDeviceTypeOption)
     {
-        return Ok();
+        var result = await _deviceApplication.AddDeviceTypeOption(addDeviceTypeOption);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
 
     [HttpPut("TypeOption/{key:guid}")]
-    public async Task<ActionResult> EditDeviceTypeOption(Guid key)
+    public async Task<ActionResult> EditDeviceTypeOption(Guid key,EditDeviceTypeOption editDeviceTypeOption)
     {
-        return Ok();
+        var result = await _deviceApplication.EditDeviceTypeOption(key,editDeviceTypeOption);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
 
     [HttpDelete("TypeOption/{key:guid}")]
     public async Task<ActionResult> DeleteDeviceTypeOption(Guid key)
     {
-        return Ok();
+        var result = await _deviceApplication.RemoveDeviceTypeOption(key);
+        return result.IsSucceeded ? Ok(result) : BadRequest(result);
     }
     #endregion
 

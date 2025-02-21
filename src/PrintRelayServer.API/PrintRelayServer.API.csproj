@@ -28,6 +28,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PrintRelayServer.Application\PrintRelayServer.Application.csproj" />
       <ProjectReference Include="..\PrintRelayServer.Infrastructure\PrintRelayServer.Infrastructure.csproj" />
     </ItemGroup>
 
