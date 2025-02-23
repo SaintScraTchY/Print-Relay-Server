@@ -6,5 +6,5 @@ public class GetRole
 {
     public Guid Id { get; set; }
     public string Title { get; set; }
-    public IEnumerable<GetPermission> Permissions { get; set; }
+    //public IEnumerable<GetPermission> Permissions { get; set; }
 }

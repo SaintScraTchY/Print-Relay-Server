@@ -23,15 +23,5 @@
     <RadzenDataGridColumn Title="OS" Property="OsIdentifier" />
 </RadzenDataGrid>
 
-@if (DevicesList != null)
-{
-    <ul>
-        @foreach (var device in DevicesList)
-        {
-            <li>@device.Name - @device.Code</li>
-        }
-    </ul>
-}
-
 @code {
-}
+}   

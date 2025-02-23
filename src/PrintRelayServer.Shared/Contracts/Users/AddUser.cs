@@ -23,4 +23,8 @@ public class AddUser
     [MinLength(6)]
     [Required]
     public string Password { get; set; }
+
+    [Required]
+    public bool IsAdmin { get; set; }
+    //public IEnumerable<Guid> Roles { get; set; }
 }

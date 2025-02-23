@@ -2,7 +2,8 @@
 
 namespace PrintRelayServer.Domain.IRepositories.IDeviceRepo;
 
-public interface IDeviceRepository : IRepository<Device>
+public interface 
+    IDeviceRepository : IRepository<Device>
 {
     
 }

@@ -7,8 +7,7 @@ using PrintRelayServer.Shared.Contracts.Base;
 
 namespace PrintRelayServer.Infrastructure.Repositories;
 
-public class Repository<TEntity> : IRepository<TEntity>
-    where TEntity : Entity<Guid>
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly PrintRelayContext _context;
     private readonly DbSet<TEntity> _dbSet;
