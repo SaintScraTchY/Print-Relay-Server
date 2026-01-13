@@ -5,7 +5,7 @@ public class Entity<TKey>
     public TKey Id { get; set; }
     public DateTime CreatedOn { get; set; }
 
-    public Entity()
+    protected Entity()
     {
         CreatedOn = DateTime.Now;
     }

@@ -13,7 +13,7 @@ public class DeviceConfig : IEntityTypeConfiguration<Device>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(256).IsRequired();
         builder.Property(x => x.OsIdentifier).HasMaxLength(512).IsRequired();
-        builder.Property(x => x.Code).HasMaxLength(32).IsRequired(false);
+        builder.Property(x => x.Description).HasMaxLength(1024).IsRequired(false);
         builder.Property(x => x.DeviceTypeId).IsRequired();
         builder.Property(x => x.OwnerId).IsRequired();
 

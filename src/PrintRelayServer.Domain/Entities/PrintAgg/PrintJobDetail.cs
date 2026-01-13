@@ -11,7 +11,8 @@ public class PrintJobDetail: Entity<Guid>
     public PrintPaper PrintPaper { get; set; }
     
     public PrintPriority Priority { get; set; }
-    public uint Copies { get; set; }
+    public uint RequestCount { get; set; }
+    public uint CompletedCount { get; set; } = 0;
     public string? Margins { get; set; }
     public PrintQuality Quality { get; set; }
 
@@ -24,14 +25,15 @@ public class PrintJobDetail: Entity<Guid>
 
     public PrintJobDetail( string printerIdentifier, float width = 0f, float height = 0f,
         PrintPaperUnit paperSizeUnit = PrintPaperUnit.Millimeter, PrintPaper printPaper = PrintPaper.A4, 
-        PrintPriority priority = PrintPriority.Low, uint copies = 1, string margins = "5", PrintQuality quality = PrintQuality.Average)
+        PrintPriority priority = PrintPriority.Low, uint requestCount = 1, string margins = "5", PrintQuality quality = PrintQuality.Average)
     {
         Width = width;
         Height = height;
         PaperSizeUnit = paperSizeUnit;
         PrintPaper = printPaper;
         Priority = priority;
-        Copies = copies;
+        RequestCount = requestCount;
+        CompletedCount = 0;
         Margins = margins;
         Quality = quality;
         PrinterIdentifier = printerIdentifier;

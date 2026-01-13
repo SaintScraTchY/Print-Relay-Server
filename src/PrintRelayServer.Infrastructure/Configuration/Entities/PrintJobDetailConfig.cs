@@ -13,7 +13,8 @@ public class PrintJobDetailConfig : IEntityTypeConfiguration<PrintJobDetail>
 
         builder.Property(x => x.PrintPaper).IsRequired();
         
-        builder.Property(x => x.Copies).IsRequired().HasDefaultValue(1);
+        builder.Property(x => x.RequestCount).IsRequired().HasDefaultValue(1);
+        builder.Property(x => x.CompletedCount).IsRequired().HasDefaultValue(0);
 
         builder.Property(x => x.PrintPaper).IsRequired();
         builder.Property(x => x.Quality).IsRequired();

@@ -12,4 +12,5 @@ public enum ResourceAccessType
     Receive = 1,
     Send,
     View,
+    Manage,
 }

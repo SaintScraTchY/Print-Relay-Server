@@ -8,7 +8,6 @@ namespace PrintRelayServer.Domain.Entities.PrintAgg;
 public class PrintJob : Entity<Guid>
 {
     public PrintJobStatus Status { get; set; }
-    public uint DoneCount { get; set; } = 0;
 
     public Guid DetailId { get; set; }
     public PrintJobDetail Detail { get; set; }

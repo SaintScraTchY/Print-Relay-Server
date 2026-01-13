@@ -6,7 +6,6 @@ public class DeviceOptionValue : FullEntity
 {
     public string Label { get; set; }
     public string Value { get; set; }
-
     public Guid DeviceTypeOptionId { get; set; }
     public DeviceTypeOption? DeviceTypeOption { get; set; }
     

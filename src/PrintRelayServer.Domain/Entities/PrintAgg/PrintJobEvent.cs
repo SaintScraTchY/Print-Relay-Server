@@ -19,15 +19,3 @@ public class PrintJobEvent : Entity<Guid>
     public PrintJob PrintJob { get; set; }
     #endregion
 }
-
-public enum PrintJobStatus
-{
-    Sent = 1,
-    Approved,
-    InQueue,
-    Paused,
-    Cancelled,
-    Printing,
-    Failed,
-    Printed
-}

@@ -6,7 +6,7 @@ namespace PrintRelayServer.Domain.Entities.DeviceAgg;
 public class Device : FullEntity
 {
     public string Name { get; set; }
-    public string Code { get; set; }
+    public string Description { get; set; }
 
     public string OsIdentifier { get; set; }
     
@@ -21,18 +21,18 @@ public class Device : FullEntity
         
     }
 
-    public Device(string name, string code, Guid ownerId, Guid deviceTypeId)
+    public Device(string name, string description, Guid ownerId, Guid deviceTypeId)
     {
         Name = name;
-        Code = code;
+        Description = description;
         OwnerId = ownerId;
         DeviceTypeId = deviceTypeId;
     }
     
-    public void Edit(string name, string code,Guid userId)
+    public void Edit(string name, string description,Guid userId)
     {
         Name = name;
-        Code = code;
+        Description = description;
         Updated(userId);
     }
 }

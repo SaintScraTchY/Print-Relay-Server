@@ -6,7 +6,7 @@ public class FullEntity : Entity<Guid>
 {
     public Guid CreatedBy { get; set; }
     public AppUser? Creator { get; set; }
-    public Guid? UpdatedBy { get; set; }
+    public Guid? UpdatedBy { get; private set; }
     public AppUser? Modifier { get; set; }
     public DateTime? UpdatedOn { get; set; }
     public bool IsActive { get; set; } = true;
