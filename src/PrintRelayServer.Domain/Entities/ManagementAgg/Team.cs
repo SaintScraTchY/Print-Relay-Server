@@ -6,9 +6,18 @@ namespace PrintRelayServer.Domain.Entities.ManagementAgg;
 public class Team : FullEntity
 {
     public string Name { get; set; }
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public Guid LeaderId { get; set; }
     public AppUser Leader { get; set; }
-    public ICollection<UserTeam> Memebers { get; set; }
+
+    public ICollection<TeamMember> Members { get; set; } = new HashSet<TeamMember>();
+
+    public ICollection<TeamPermissionGrant> TeamPermissionGrants { get; set; } = new HashSet<TeamPermissionGrant>();
+
+    protected Team(string name, string description)
+    {
+        Name = name;
+        Description = description;
+    }
 }

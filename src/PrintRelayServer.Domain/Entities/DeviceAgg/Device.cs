@@ -9,6 +9,7 @@ public class Device : FullEntity
     public string Description { get; set; }
 
     public string OsIdentifier { get; set; }
+    public int? Port { get; set; }
     
     public Guid OwnerId { get; set; }
     public AppUser Owner { get; set; }

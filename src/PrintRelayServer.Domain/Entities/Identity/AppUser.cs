@@ -6,7 +6,7 @@ namespace PrintRelayServer.Domain.Entities.Identity;
 public class AppUser : IdentityUser<Guid>
 {
     public ICollection<Device> Devices { get; set; }
-    public ICollection<AppRole> Roles { get; set; }
+    public ICollection<AppRole> Roles { get; set; } = new HashSet<AppRole>();
     public string FirstName { get; set; }
     public string LastName { get; set; }
     
