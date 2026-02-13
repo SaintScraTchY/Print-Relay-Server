@@ -9,13 +9,11 @@ namespace PrintRelayServer.Application.Application.Implementations;
 public class PrintApplication : IPrintApplication
 {
     private readonly IPrintJobRepository _printJobRepository;
-    private readonly IPrintJobEventRepository _printJobEventRepository;
     private readonly IPrintJobDetailRepository _printJobDetailRepository;
 
-    public PrintApplication(IPrintJobRepository printJobRepository, IPrintJobEventRepository printJobEventRepository, IPrintJobDetailRepository printJobDetailRepository)
+    public PrintApplication(IPrintJobRepository printJobRepository, IPrintJobDetailRepository printJobDetailRepository)
     {
         _printJobRepository = printJobRepository;
-        _printJobEventRepository = printJobEventRepository;
         _printJobDetailRepository = printJobDetailRepository;
     }
 
@@ -57,14 +55,5 @@ public class PrintApplication : IPrintApplication
         };
         
         return ReturnResult<PaginatedResult<GetPrintJob>>.Success(result);
-    }
-
-    public async Task<BaseResult<IList<GetPrintJobEvent>>> GetPrintJobEventsBy(Guid printJobId)
-    {
-        var printJobEvents = await _printJobEventRepository
-            .GetAllAsync(filter:x=>x.PrintJobId == printJobId,
-                orderBy: x => x.OrderByDescending(d => d.Id));
-
-        return ReturnResult<IList<GetPrintJobEvent>>.Success(PrintMapper.MapToPrintJobEvents(printJobEvents));
     }
 }

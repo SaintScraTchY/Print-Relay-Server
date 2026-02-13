@@ -9,7 +9,4 @@ public static partial class PrintMapper
 {
     public static partial GetPrintJob MapToPrintJob(PrintJob source);
     public static partial IList<GetPrintJob> MapToPrintJobs(IList<PrintJob> source);
-    
-    
-    public static partial IList<GetPrintJobEvent> MapToPrintJobEvents(IEnumerable<PrintJobEvent> source);
 }

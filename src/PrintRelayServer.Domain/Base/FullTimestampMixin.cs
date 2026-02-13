@@ -1,4 +1,5 @@
 ﻿using PrintRelayServer.Domain.Base.Contracts;
+using PrintRelayServer.Domain.Base.Contracts.Events;
 using PrintRelayServer.Domain.Entities.Identity;
 
 namespace PrintRelayServer.Domain.Base;
@@ -17,10 +18,6 @@ public abstract class FullAuditableEntity : TimestampedEntity,
     public bool IsActive { get; private set; } = true;
     public bool IsDeleted { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
-    // Navigation properties (optional, for EF Core)
-    public virtual AppUser? Creator { get; set; }
-    public virtual AppUser? Modifier { get; set; }
 
     protected FullAuditableEntity() { }
 
@@ -47,6 +44,16 @@ public abstract class FullAuditableEntity : TimestampedEntity,
     {
         IsActive = false;
         AddDomainEvent(new EntityDeactivatedEvent(Id, GetType().Name));
+    }
+
+    public void Toggle()
+    {
+        if(IsDeleted)
+            throw new InvalidOperationException("Cannot activate a deleted entity");
+        
+        IsActive = !IsActive;
+        //TODO
+        //AddDomainEvent(new EntityToggledEvent(Id, GetType().Name, IsActive));
     }
 
     public void SoftDelete()

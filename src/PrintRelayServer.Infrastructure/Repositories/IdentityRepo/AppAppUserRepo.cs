@@ -1,5 +1,5 @@
 ﻿using PrintRelayServer.Domain.Entities.Identity;
-using PrintRelayServer.Domain.IRepositories.IIDentityRepo;
+using PrintRelayServer.Domain.IRepositories.IIdentityRepo;
 using PrintRelayServer.Infrastructure.Contexts;
 
 namespace PrintRelayServer.Infrastructure.Repositories.IdentityRepo;

@@ -20,7 +20,6 @@ public class PrintRelayContext : IdentityDbContext<AppUser,AppRole,Guid>
     public DbSet<DeviceOptionValue> DeviceOptionValues { get; set; }
     public DbSet<PrintJob> PrintJobs { get; set; }
     public DbSet<PrintJobDetail> PrintJobDetails { get; set; }
-    public DbSet<PrintJobEvent> PrintJobEvents { get; set; }
     
     protected override void OnModelCreating(ModelBuilder builder)
     {

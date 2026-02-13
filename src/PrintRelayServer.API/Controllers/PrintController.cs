@@ -24,9 +24,4 @@ public class PrintController : ControllerBase
     {
         return Ok(await _printApplication.GetPrintJobsByFilter(pageNumber,pageSize,filter));
     }
-
-    public async Task<IActionResult> GetPrintJobEvents(Guid key)
-    {
-        return Ok(await _printApplication.GetPrintJobEventsBy(key));
-    }
 }

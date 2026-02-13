@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PrintRelayServer.Domain.Base;
+using PrintRelayServer.Domain.Base.Contracts;
 
 namespace PrintRelayServer.Infrastructure.Configuration;
 
@@ -23,6 +24,7 @@ public static class AuditableConfigurationExtensions
         this EntityTypeBuilder<TEntity> builder) 
         where TEntity : AuditableEntity
     {
+        builder.ConfigureTimestamps();
         builder.Property(x => x.CreatedBy).IsRequired();
         builder.Property(x => x.ModifiedBy).IsRequired(false);
         
@@ -37,10 +39,11 @@ public static class AuditableConfigurationExtensions
             .OnDelete(DeleteBehavior.NoAction);
     }
 
-    public static void ConfigureSoftDeleteEntity<TEntity>(
+    public static void ConfigureFullAuditEntity<TEntity>(
         this EntityTypeBuilder<TEntity> builder) 
         where TEntity : FullAuditableEntity
     {
+        builder.ConfigureTimestamps();
         builder.Property(x => x.IsDeleted)
             .IsRequired()
             .HasDefaultValue(false);
@@ -49,18 +52,28 @@ public static class AuditableConfigurationExtensions
         builder.Property(x => x.IsActive)
             .IsRequired()
             .HasDefaultValue(true);
+        
+        builder.HasOne(x=>x.CreatedBy)
+            .WithMany()
+            .HasForeignKey(x => x.CreatedById)
+            .OnDelete(DeleteBehavior.Restrict);
+            
+        builder.HasOne(x=>x.ModifiedBy)
+            .WithMany()
+            .HasForeignKey(x => x.ModifiedById)
+            .OnDelete(DeleteBehavior.Restrict);
             
         // Global Query Filter
         builder.HasQueryFilter(x => !x.IsDeleted);
     }
-
-    // همه چی با یک متد
-    public static void ConfigureFullAudit<TEntity>(
+    
+    public static void ConfigureActivatableEntity<TEntity>(
         this EntityTypeBuilder<TEntity> builder) 
-        where TEntity : FullAuditableEntity
+        where TEntity : ActivatableEntity
     {
         builder.ConfigureTimestamps();
-        builder.ConfigureFullAudit();
-        builder.ConfigureSoftDeleteEntity();
+        builder.Property(x => x.IsActive)
+            .IsRequired()
+            .HasDefaultValue(true);
     }
 }

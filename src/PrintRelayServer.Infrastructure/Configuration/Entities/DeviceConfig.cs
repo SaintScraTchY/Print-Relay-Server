@@ -17,14 +17,32 @@ public class DeviceConfig : IEntityTypeConfiguration<Device>
         builder.Property(x => x.DeviceTypeId).IsRequired();
         builder.Property(x => x.OwnerId).IsRequired();
 
+        // Indexes
+        builder.HasIndex(x => x.OwnerId);
+        builder.HasIndex(x => x.DeviceTypeId);
+        builder.HasIndex(x => x.Name);
+        
+        // Relationships
+        builder.HasOne(x => x.Owner)
+            .WithMany()
+            .HasForeignKey(x => x.OwnerId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
         builder.HasOne(x => x.DeviceType)
             .WithMany(x => x.Devices)
-            .HasForeignKey(x => x.DeviceTypeId);
-
-        builder.HasOne(x => x.Owner)
-            .WithMany(x => x.Devices)
-            .HasForeignKey(x => x.OwnerId);
+            .HasForeignKey(x => x.DeviceTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
         
-        builder.ConfigureFullAudit();
+        builder.HasMany(x => x.AgentDevices)
+            .WithOne(x => x.Device)
+            .HasForeignKey(x => x.DeviceId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(x => x.PrintJobs)
+            .WithOne(x => x.Device)
+            .HasForeignKey(x => x.DeviceId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.ConfigureFullAuditEntity();
     }
 }
