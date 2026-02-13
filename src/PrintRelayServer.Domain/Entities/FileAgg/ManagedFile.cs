@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.Entities.FileAgg;
 
-public class ManagedFile : FullAuditEntity
+public class ManagedFile : AuditableEntity
 {
     public string FileName { get; set; }
     public string Path { get; set; }

@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.Entities.Identity;
 
-public class ResourceAccess : AuditEntity
+public class ResourceAccess : TimestampedEntity
 {
     public Guid UserId { get; set; }
     public AppUser User { get; set; }

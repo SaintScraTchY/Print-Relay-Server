@@ -3,13 +3,16 @@ using PrintRelayServer.Domain.Entities.Identity;
 
 namespace PrintRelayServer.Domain.Base;
 
-public abstract class FullAuditEntity : AuditEntity, 
-    IUserTracked, 
+public abstract class FullAuditableEntity : TimestampedEntity, 
+    IHasCreatedBy,
+    IHasModifiedBy,
     ISoftDeletable, 
     IActivatable
 {
-    public Guid CreatedBy { get; private set; }
-    public Guid? ModifiedBy { get; private set; }
+    public Guid CreatedById { get; set; }
+    public AppUser CreatedBy { get; set; }
+    public Guid? ModifiedById { get; set; }
+    public AppUser? ModifiedBy { get; set; }
     
     public bool IsActive { get; private set; } = true;
     public bool IsDeleted { get; private set; }
@@ -19,14 +22,14 @@ public abstract class FullAuditEntity : AuditEntity,
     public virtual AppUser? Creator { get; set; }
     public virtual AppUser? Modifier { get; set; }
 
-    protected FullAuditEntity() { }
+    protected FullAuditableEntity() { }
 
     // Factory method pattern for controlled creation
-    public static TEntity Create<TEntity>(Guid createdBy, Func<TEntity> factory) 
-        where TEntity : FullAuditEntity
+    public static TEntity Create<TEntity>(Guid createdById, Func<TEntity> factory) 
+        where TEntity : AuditableEntity
     {
         var entity = factory();
-        entity.CreatedBy = createdBy;
+        entity.CreatedById = createdById;
         return entity;
     }
 
@@ -69,6 +72,6 @@ public abstract class FullAuditEntity : AuditEntity,
     // Internal modifier for interceptors
     internal void MarkModifiedBy(Guid userId)
     {
-        ModifiedBy = userId;
+        ModifiedById = userId;
     }
 }

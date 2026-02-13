@@ -40,7 +40,7 @@ public class PrintApplication : IPrintApplication
     {
         var printJobs = await _printJobRepository.GetPaginatedAsync(pageNumber,pageSize,
             filter: x=> 
-                (filter.Requesters == null || filter.Requesters.Contains(x.RequesterId))
+                (filter.Requesters == null || filter.Requesters.Contains(x.CreatedById))
             && (filter.Devices == null || filter.Devices.Contains(x.DeviceId))
                 && (filter.Statuses == null || filter.Statuses.Contains((short)x.Status))
                 && (filter.DateFrom == null || filter.DateFrom >= DateTime.Today)

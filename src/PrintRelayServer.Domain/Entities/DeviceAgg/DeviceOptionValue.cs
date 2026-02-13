@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.Entities.DeviceAgg;
 
-public class DeviceOptionValue : AuditEntity
+public class DeviceOptionValue : TimestampedEntity
 {
     public string Label { get; set; }
     public string Value { get; set; }

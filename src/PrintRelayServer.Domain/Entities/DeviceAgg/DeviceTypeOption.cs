@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.Entities.DeviceAgg;
 
-public class DeviceTypeOption : AuditEntity
+public class DeviceTypeOption : TimestampedEntity
 {
     public string OptionName { get; set; }
     public Guid DeviceTypeId { get; set; }

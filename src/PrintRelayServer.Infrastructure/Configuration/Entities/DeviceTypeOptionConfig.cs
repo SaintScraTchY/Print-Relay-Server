@@ -18,13 +18,6 @@ public class DeviceTypeOptionConfig : IEntityTypeConfiguration<DeviceTypeOption>
             .WithOne(x => x.DeviceTypeOption)
             .HasForeignKey(x => x.DeviceTypeOptionId);
         
-        builder.HasOne(x => x.Creator)
-            .WithMany()
-            .HasForeignKey(x => x.CreatedBy);
-        
-        builder.HasOne(x => x.Modifier)
-            .WithMany()
-            .HasForeignKey(x => x.UpdatedBy);
-        
+        builder.ConfigureTimestamps();
     }
 }

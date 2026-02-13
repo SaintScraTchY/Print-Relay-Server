@@ -13,7 +13,9 @@ public class PrintJobConfig : IEntityTypeConfiguration<PrintJob>
 
         builder.Property(x => x.Status).IsRequired();
         builder.Property(x => x.DetailId).IsRequired();
-        builder.Property(x => x.RequesterId).IsRequired();
         builder.Property(x => x.DeviceId).IsRequired();
+        
+        builder.ConfigureTimestamps();
+        builder.ConfigureAuditEntity();
     }
 }

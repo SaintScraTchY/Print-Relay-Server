@@ -55,7 +55,7 @@ public class DeviceApplication : IDeviceApplication
         var device = await _deviceRepository.GetByIdAsync(deviceId);
         if (device == null) return ReturnResult<Guid>.Error(deviceId, "Device not found");
         
-        device.SoftDelete(userId);
+        device.SoftDelete();
         _deviceRepository.Update(device);
         if(await _deviceRepository.SaveChangesAsync())
             return ReturnResult<Guid>.Success(deviceId);
@@ -160,8 +160,7 @@ public class DeviceApplication : IDeviceApplication
         if (deviceTypeOption == null)
             return ReturnResult<Guid>.Error(deviceTypeOptionId, "Device type not found");
 
-        deviceTypeOption.SoftDelete(userId);
-        _deviceTypeOptionRepository.Update(deviceTypeOption);
+        _deviceTypeOptionRepository.Remove(deviceTypeOption);
         
         if(await _deviceTypeOptionRepository.SaveChangesAsync())
             return ReturnResult<Guid>.Success(deviceTypeOptionId);

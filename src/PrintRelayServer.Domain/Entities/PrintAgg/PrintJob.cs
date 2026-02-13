@@ -6,7 +6,7 @@ using PrintRelayServer.Domain.Entities.Identity;
 
 namespace PrintRelayServer.Domain.Entities.PrintAgg;
 
-public class PrintJob : FullAuditEntity
+public class PrintJob : AuditableEntity
 {
     protected PrintJob(DateTime? startedAt, DateTime? completedAt, Guid detailId, Guid fileId)
     {

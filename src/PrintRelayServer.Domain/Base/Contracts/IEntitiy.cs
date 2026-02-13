@@ -1,6 +1,4 @@
-﻿using PrintRelayServer.Domain.Entities.Identity;
-
-namespace PrintRelayServer.Domain.Base.Contracts;
+﻿namespace PrintRelayServer.Domain.Base.Contracts;
 
 /// <summary>
 /// Marker interface for entity identification

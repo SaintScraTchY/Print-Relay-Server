@@ -3,7 +3,7 @@ using PrintRelayServer.Domain.Entities.Identity;
 
 namespace PrintRelayServer.Domain.Entities.DeviceAgg;
 
-public class Device : AuditEntity
+public class Device : FullAuditableEntity
 {
     public string Name { get; set; }
     public string Description { get; set; }

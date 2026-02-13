@@ -25,12 +25,6 @@ public class DeviceConfig : IEntityTypeConfiguration<Device>
             .WithMany(x => x.Devices)
             .HasForeignKey(x => x.OwnerId);
         
-        builder.HasOne(x => x.Creator)
-            .WithMany()
-            .HasForeignKey(x => x.CreatedBy);
-        
-        builder.HasOne(x => x.Modifier)
-            .WithMany()
-            .HasForeignKey(x => x.UpdatedBy);
+        builder.ConfigureFullAudit();
     }
 }

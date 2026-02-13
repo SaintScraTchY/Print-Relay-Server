@@ -3,7 +3,7 @@ using PrintRelayServer.Domain.Entities.Identity;
 
 namespace PrintRelayServer.Domain.Entities.ManagementAgg;
 
-public class TeamMember : AuditEntity
+public class TeamMember : TimestampedEntity
 {
     public Guid MemberId { get; set; }
     public AppUser Member { get; set; }
