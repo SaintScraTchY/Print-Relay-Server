@@ -1,20 +1,22 @@
-﻿namespace PrintRelayServer.Domain.Base;
+﻿using PrintRelayServer.Domain.Base.Contracts;
 
-public class AuditEntity : Entity<Guid>
+namespace PrintRelayServer.Domain.Base;
+
+public abstract class AuditEntity : Entity<Guid>, IAuditable
 {
-    public Guid CreatedBy { get; set; } 
-    public DateTime CreatedOn { get; set; }
-    public Guid? UpdatedBy { get; set; }
-    public DateTime? UpdatedOn { get; set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime? ModifiedAt { get; private set; }
 
-    public AuditEntity()
+    protected AuditEntity() : base(Guid.NewGuid()) { }
+
+    // Internal method for interceptor to call - not part of public API
+    internal void MarkCreated(DateTime timestamp)
     {
-        CreatedOn = DateTime.Now;
+        CreatedAt = timestamp;
     }
 
-    public void Updated(Guid userGuid)
+    internal void MarkModified(DateTime timestamp)
     {
-        UpdatedOn = DateTime.Now;
-        UpdatedBy = userGuid;
+        ModifiedAt = timestamp;
     }
 }
