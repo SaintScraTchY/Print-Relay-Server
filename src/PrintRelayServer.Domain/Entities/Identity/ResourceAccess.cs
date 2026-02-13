@@ -2,7 +2,7 @@
 
 namespace PrintRelayServer.Domain.Entities.Identity;
 
-public class ResourceAccess : FullEntity
+public class ResourceAccess : AuditEntity
 {
     public Guid UserId { get; set; }
     public AppUser User { get; set; }
@@ -11,4 +11,11 @@ public class ResourceAccess : FullEntity
     public Guid ResourceId { get; set; }
 
     public ICollection<ResourceAccessPermission> Permissions { get; set; }
+    protected ResourceAccess(Guid userGuid, Guid userId,ResourceKind resourceKind, 
+        Guid resourceId)
+    {
+        UserId = userId;
+        ResourceKind = resourceKind;
+        ResourceId = resourceId;
+    }
 }
