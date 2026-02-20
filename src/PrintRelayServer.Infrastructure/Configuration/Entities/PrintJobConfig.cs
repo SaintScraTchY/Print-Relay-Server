@@ -22,7 +22,7 @@ public class PrintJobConfig : IEntityTypeConfiguration<PrintJob>
         
         // Indexes for common queries
         builder.HasIndex(x => x.Status);
-        builder.HasIndex(x => x.CreatedBy);
+        builder.HasIndex(x => x.CreatedById);
         builder.HasIndex(x => x.DeviceId);
         builder.HasIndex(x => x.AssignedAgentId);
         builder.HasIndex(x => new { x.Status, x.DeviceId }); // For finding pending jobs per device

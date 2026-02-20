@@ -27,7 +27,7 @@ public class ManagedFileConfiguration : IEntityTypeConfiguration<ManagedFile>
             .HasMaxLength(64); // SHA256 hex string length
         
         // Indexes
-        builder.HasIndex(x => x.CreatedBy);
+        builder.HasIndex(x => x.CreatedById);
         builder.HasIndex(x => x.Hash)
             .HasFilter("\"Hash\" IS NOT NULL"); // For file deduplication
         

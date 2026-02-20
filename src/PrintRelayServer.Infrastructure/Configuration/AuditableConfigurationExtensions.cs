@@ -25,18 +25,18 @@ public static class AuditableConfigurationExtensions
         where TEntity : AuditableEntity
     {
         builder.ConfigureTimestamps();
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.ModifiedBy).IsRequired(false);
-        
-        builder.HasOne(x=>x.CreatedBy)
-            .WithMany()
-            .HasForeignKey(x => x.CreatedById)
-            .OnDelete(DeleteBehavior.NoAction);
-            
-        builder.HasOne(x=>x.ModifiedBy)
-            .WithMany()
-            .HasForeignKey(x => x.ModifiedById)
-            .OnDelete(DeleteBehavior.NoAction);
+        // builder.Property(x => x.CreatedBy).IsRequired();
+        // builder.Property(x => x.ModifiedBy).IsRequired(false);
+        //
+        // builder.HasOne(x=>x.CreatedBy)
+        //     .WithMany()
+        //     .HasForeignKey(x => x.CreatedById)
+        //     .OnDelete(DeleteBehavior.NoAction);
+        //     
+        // builder.HasOne(x=>x.ModifiedBy)
+        //     .WithMany()
+        //     .HasForeignKey(x => x.ModifiedById)
+        //     .OnDelete(DeleteBehavior.NoAction);
     }
 
     public static void ConfigureFullAuditEntity<TEntity>(
@@ -53,15 +53,15 @@ public static class AuditableConfigurationExtensions
             .IsRequired()
             .HasDefaultValue(true);
         
-        builder.HasOne(x=>x.CreatedBy)
-            .WithMany()
-            .HasForeignKey(x => x.CreatedById)
-            .OnDelete(DeleteBehavior.Restrict);
-            
-        builder.HasOne(x=>x.ModifiedBy)
-            .WithMany()
-            .HasForeignKey(x => x.ModifiedById)
-            .OnDelete(DeleteBehavior.Restrict);
+        // builder.HasOne(x=>x.CreatedBy)
+        //     .WithMany()
+        //     .HasForeignKey(x => x.CreatedById)
+        //     .OnDelete(DeleteBehavior.Restrict);
+        //     
+        // builder.HasOne(x=>x.ModifiedBy)
+        //     .WithMany()
+        //     .HasForeignKey(x => x.ModifiedById)
+        //     .OnDelete(DeleteBehavior.Restrict);
             
         // Global Query Filter
         builder.HasQueryFilter(x => !x.IsDeleted);

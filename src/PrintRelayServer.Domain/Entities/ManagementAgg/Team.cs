@@ -15,7 +15,12 @@ public class Team : AuditableEntity
 
     public ICollection<TeamPermissionGrant> TeamPermissionGrants { get; set; } = new HashSet<TeamPermissionGrant>();
 
-    protected Team(string name, string description)
+    protected Team()
+    {
+        
+    }
+
+    public Team(string name, string description)
     {
         Name = name;
         Description = description;

@@ -1,10 +1,12 @@
-﻿using PrintRelayServer.Domain.Base.Contracts;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using PrintRelayServer.Domain.Base.Contracts;
 
 namespace PrintRelayServer.Domain.Base;
 
 public abstract class Entity<TKey> : IEntity<TKey>, IEquatable<Entity<TKey>> 
     where TKey : IEquatable<TKey>
 {
+    [NotMapped]
     private TKey? _id;
     
     public TKey Id 
@@ -14,7 +16,9 @@ public abstract class Entity<TKey> : IEntity<TKey>, IEquatable<Entity<TKey>>
     }
 
     // Domain event support for cross-cutting concerns
+    [NotMapped]
     private readonly List<DomainEvent> _domainEvents = [];
+    [NotMapped]
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     protected Entity() { }

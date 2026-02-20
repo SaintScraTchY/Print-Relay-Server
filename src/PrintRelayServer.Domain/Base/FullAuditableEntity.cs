@@ -11,9 +11,9 @@ public abstract class FullAuditableEntity : TimestampedEntity,
     IActivatable
 {
     public Guid CreatedById { get; set; }
-    public AppUser CreatedBy { get; set; }
+    //public AppUser? CreatedBy { get; set; }
     public Guid? ModifiedById { get; set; }
-    public AppUser? ModifiedBy { get; set; }
+    //public AppUser? ModifiedBy { get; set; }
     
     public bool IsActive { get; private set; } = true;
     public bool IsDeleted { get; private set; }

@@ -21,6 +21,10 @@ public class Agentdeviceconfig : IEntityTypeConfiguration<AgentDevice>
         builder.HasIndex(x => new { x.DeviceId, x.IsActive });
         
         // Relationships configured in ClientAgent and Device configurations
+        builder.HasOne(x => x.Device)
+            .WithMany(x => x.AgentDevices)
+            .HasForeignKey(x => x.DeviceId);
+        
         builder.ConfigureTimestamps();
     }
 }

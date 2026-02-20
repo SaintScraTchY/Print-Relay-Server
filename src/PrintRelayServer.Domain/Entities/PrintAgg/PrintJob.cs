@@ -36,7 +36,7 @@ public class PrintJob : AuditableEntity
     public int RetryCount { get; private set; }
     
     // EF Constructor
-    protected PrintJob(Guid userGuid) { }
+    protected PrintJob() { }
     
     /// <summary>
     /// Create a new print job

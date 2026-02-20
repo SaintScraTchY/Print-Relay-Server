@@ -14,9 +14,9 @@ public class ManagedFile : FullAuditableEntity
     // Navigation
     public ICollection<PrintJob> PrintJobs { get; set; } = new List<PrintJob>();
     
-    protected ManagedFile(Guid userGuid) { }
+    protected ManagedFile() { }
     
-    public ManagedFile(Guid userId, string fileName, string path, long size, string? contentType = null) 
+    public ManagedFile(string fileName, string path, long size, string? contentType = null) 
     {
         if (string.IsNullOrWhiteSpace(fileName))
             throw new ArgumentException("File name cannot be empty", nameof(fileName));

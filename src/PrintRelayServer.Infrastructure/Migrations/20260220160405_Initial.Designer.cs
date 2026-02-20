@@ -12,7 +12,7 @@ using PrintRelayServer.Infrastructure.Contexts;
 namespace PrintRelayServer.Infrastructure.Migrations
 {
     [DbContext(typeof(PrintRelayContext))]
-    [Migration("20250206210321_Initial")]
+    [Migration("20260220160405_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace PrintRelayServer.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "10.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -128,30 +128,157 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.AgentAgg.AgentDevice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AgentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<Guid>("DeviceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastUsedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("LinkedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceId");
+
+                    b.HasIndex("AgentId", "DeviceId")
+                        .IsUnique();
+
+                    b.HasIndex("DeviceId", "IsActive");
+
+                    b.ToTable("AgentDevices", (string)null);
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.AgentAgg.ClientAgent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<string>("HostName")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("IpAddress")
+                        .HasMaxLength(45)
+                        .HasColumnType("character varying(45)");
+
+                    b.Property<bool>("IsConnected")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastHeartbeat")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("MachineId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<Guid?>("OwnerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Platform")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("SignalRConnectionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Version")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsConnected");
+
+                    b.HasIndex("MachineId")
+                        .IsUnique();
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("SignalRConnectionId")
+                        .HasFilter("\"SignalRConnectionId\" IS NOT NULL");
+
+                    b.ToTable("ClientAgents", (string)null);
+                });
+
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.Device", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Code")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<Guid>("CreatedBy")
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1024)
+                        .HasColumnType("character varying(1024)");
 
                     b.Property<Guid>("DeviceTypeId")
                         .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedById")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -166,21 +293,18 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<int?>("Port")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("DeviceTypeId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("Name");
 
-                    b.HasIndex("UpdatedBy");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Devices", (string)null);
                 });
@@ -191,31 +315,21 @@ namespace PrintRelayServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<Guid>("DeviceTypeOptionId")
                         .HasColumnType("uuid");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Label")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Value")
                         .IsRequired()
@@ -224,11 +338,7 @@ namespace PrintRelayServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedBy");
-
                     b.HasIndex("DeviceTypeOptionId");
-
-                    b.HasIndex("UpdatedBy");
 
                     b.ToTable("DeviceOptionValues", (string)null);
                 });
@@ -238,9 +348,6 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -263,47 +370,100 @@ namespace PrintRelayServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
 
                     b.Property<Guid>("DeviceTypeId")
                         .HasColumnType("uuid");
 
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("OptionName")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedBy");
 
                     b.HasIndex("DeviceTypeId");
 
-                    b.HasIndex("UpdatedBy");
-
                     b.ToTable("DeviceTypeOptions", (string)null);
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.FileAgg.ManagedFile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Hash")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Path")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("Hash")
+                        .HasFilter("\"Hash\" IS NOT NULL");
+
+                    b.ToTable("ManagedFiles", (string)null);
                 });
 
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AppUserId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -319,6 +479,8 @@ namespace PrintRelayServer.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -346,6 +508,14 @@ namespace PrintRelayServer.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -392,14 +562,55 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.Permission", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AppRoleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppRoleId");
+
+                    b.ToTable("Permission");
+                });
+
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.PrintAgg.PrintJob", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<Guid?>("AssignedAgentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("AssignedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<Guid>("CreatedById")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("DetailId")
                         .HasColumnType("uuid");
@@ -407,22 +618,48 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.Property<Guid>("DeviceId")
                         .HasColumnType("uuid");
 
-                    b.Property<long>("DoneCount")
-                        .HasColumnType("bigint");
+                    b.Property<string>("ErrorMessage")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
-                    b.Property<Guid>("RequesterId")
+                    b.Property<Guid>("FileId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Status")
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid?>("ModifiedById")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("RetryCount")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime?>("StartedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DetailId");
+                    b.HasIndex("AssignedAgentId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("DetailId")
+                        .IsUnique();
 
                     b.HasIndex("DeviceId");
 
-                    b.HasIndex("RequesterId");
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("Status", "AssignedAgentId");
+
+                    b.HasIndex("Status", "DeviceId");
 
                     b.ToTable("PrintJobs", (string)null);
                 });
@@ -433,35 +670,43 @@ namespace PrintRelayServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<long>("Copies")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValue(1L);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<long>("CompletedCount")
+                        .HasColumnType("bigint");
 
                     b.Property<float?>("Height")
                         .HasColumnType("real");
 
                     b.Property<string>("Margins")
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
-                    b.Property<int>("PaperSizeUnit")
-                        .HasColumnType("integer");
+                    b.Property<string>("PaperSizeUnit")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
-                    b.Property<int>("PrintPaper")
-                        .HasColumnType("integer");
+                    b.Property<string>("PrintPaper")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
                     b.Property<string>("PrinterIdentifier")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
-                    b.Property<int>("Priority")
-                        .HasColumnType("integer");
+                    b.Property<string>("Priority")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
 
-                    b.Property<int>("Quality")
-                        .HasColumnType("integer");
+                    b.Property<string>("Quality")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<long>("RequestCount")
+                        .HasColumnType("bigint");
 
                     b.Property<float?>("Width")
                         .HasColumnType("real");
@@ -469,34 +714,6 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PrintJobDetails", (string)null);
-                });
-
-            modelBuilder.Entity("PrintRelayServer.Domain.Entities.PrintAgg.PrintJobEvent", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Details")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("PrintJobId")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("QueuePosition")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrintJobId");
-
-                    b.ToTable("PrintJobEvents", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -550,125 +767,140 @@ namespace PrintRelayServer.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.Device", b =>
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.AgentAgg.AgentDevice", b =>
                 {
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
+                    b.HasOne("PrintRelayServer.Domain.Entities.AgentAgg.ClientAgent", "Agent")
+                        .WithMany("AgentDevices")
+                        .HasForeignKey("AgentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PrintRelayServer.Domain.Entities.DeviceAgg.Device", "Device")
+                        .WithMany("AgentDevices")
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agent");
+
+                    b.Navigation("Device");
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.AgentAgg.ClientAgent", b =>
+                {
+                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.Device", b =>
+                {
+                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", null)
+                        .WithMany("Devices")
+                        .HasForeignKey("AppUserId");
 
                     b.HasOne("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceType", "DeviceType")
                         .WithMany("Devices")
                         .HasForeignKey("DeviceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Owner")
-                        .WithMany("Devices")
+                        .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Creator");
-
                     b.Navigation("DeviceType");
-
-                    b.Navigation("Modifier");
 
                     b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceOptionValue", b =>
                 {
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceTypeOption", "DeviceTypeOption")
                         .WithMany("AllowedOptions")
                         .HasForeignKey("DeviceTypeOptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Creator");
-
                     b.Navigation("DeviceTypeOption");
-
-                    b.Navigation("Modifier");
                 });
 
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceTypeOption", b =>
                 {
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceType", "DeviceType")
                         .WithMany("AvailableOptions")
                         .HasForeignKey("DeviceTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Modifier")
-                        .WithMany()
-                        .HasForeignKey("UpdatedBy");
-
-                    b.Navigation("Creator");
-
                     b.Navigation("DeviceType");
+                });
 
-                    b.Navigation("Modifier");
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.AppRole", b =>
+                {
+                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.Permission", b =>
+                {
+                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppRole", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("AppRoleId");
                 });
 
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.PrintAgg.PrintJob", b =>
                 {
+                    b.HasOne("PrintRelayServer.Domain.Entities.AgentAgg.ClientAgent", "AssignedAgent")
+                        .WithMany("AssignedJobs")
+                        .HasForeignKey("AssignedAgentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("PrintRelayServer.Domain.Entities.PrintAgg.PrintJobDetail", "Detail")
-                        .WithMany()
-                        .HasForeignKey("DetailId")
+                        .WithOne()
+                        .HasForeignKey("PrintRelayServer.Domain.Entities.PrintAgg.PrintJob", "DetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PrintRelayServer.Domain.Entities.DeviceAgg.Device", "Device")
-                        .WithMany()
+                        .WithMany("PrintJobs")
                         .HasForeignKey("DeviceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("PrintRelayServer.Domain.Entities.Identity.AppUser", "Requester")
-                        .WithMany()
-                        .HasForeignKey("RequesterId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("PrintRelayServer.Domain.Entities.FileAgg.ManagedFile", "File")
+                        .WithMany("PrintJobs")
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("AssignedAgent");
 
                     b.Navigation("Detail");
 
                     b.Navigation("Device");
 
-                    b.Navigation("Requester");
+                    b.Navigation("File");
                 });
 
-            modelBuilder.Entity("PrintRelayServer.Domain.Entities.PrintAgg.PrintJobEvent", b =>
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.AgentAgg.ClientAgent", b =>
                 {
-                    b.HasOne("PrintRelayServer.Domain.Entities.PrintAgg.PrintJob", "PrintJob")
-                        .WithMany()
-                        .HasForeignKey("PrintJobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("AgentDevices");
 
-                    b.Navigation("PrintJob");
+                    b.Navigation("AssignedJobs");
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.Device", b =>
+                {
+                    b.Navigation("AgentDevices");
+
+                    b.Navigation("PrintJobs");
                 });
 
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.DeviceAgg.DeviceType", b =>
@@ -683,9 +915,21 @@ namespace PrintRelayServer.Infrastructure.Migrations
                     b.Navigation("AllowedOptions");
                 });
 
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.FileAgg.ManagedFile", b =>
+                {
+                    b.Navigation("PrintJobs");
+                });
+
+            modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.AppRole", b =>
+                {
+                    b.Navigation("Permissions");
+                });
+
             modelBuilder.Entity("PrintRelayServer.Domain.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Devices");
+
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }
