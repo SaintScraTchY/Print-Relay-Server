@@ -4,7 +4,7 @@ using PrintRelayServer.Shared.Contracts.PrintJob;
 
 namespace PrintRelayServer.API.Controllers;
 
-[Route("/Api/[controller]/[action]")]
+[Route("/api/[controller]/[action]")]
 [ApiController]
 public class PrintController : ControllerBase
 {

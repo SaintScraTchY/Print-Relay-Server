@@ -1,3 +1,4 @@
+using PrintRelayServer.Application.Configuration;
 using PrintRelayServer.Infrastructure.Configuration;
 using Scalar.AspNetCore;
 
@@ -11,7 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddServices();
 
 var app = builder.Build();
 

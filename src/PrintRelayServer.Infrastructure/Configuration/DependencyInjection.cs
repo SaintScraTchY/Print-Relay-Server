@@ -58,11 +58,6 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<PrintRelayContext>()
             .AddDefaultTokenProviders();
         
-        // TODO: Register application services here later
-        // services.AddScoped<IPrintJobService, PrintJobService>();
-        // services.AddScoped<IAgentRegistryService, AgentRegistryService>();
-        // services.AddScoped<IFileStorageService, LocalFileStorage>();
-        
         return services;
     }
 }

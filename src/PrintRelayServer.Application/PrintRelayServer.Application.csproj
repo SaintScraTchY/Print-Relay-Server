@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PrintRelayServer.Domain\PrintRelayServer.Domain.csproj" />
+      <ProjectReference Include="..\PrintRelayServer.Infrastructure\PrintRelayServer.Infrastructure.csproj" />
       <ProjectReference Include="..\PrintRelayServer.Shared\PrintRelayServer.Shared.csproj" />
     </ItemGroup>
 
